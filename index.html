@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <!-- Modern google fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <!-- Ionicons for high quality aesthetic icons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Calculator View -->
+        <div id="calculator-view" class="view active">
+            <div class="calc-display" id="calc-display">0</div>
+            <div class="calc-keys">
+                <button class="key-op" data-action="clear">C</button>
+                <button class="key-op" data-action="delete">⌫</button>
+                <button class="key-op" data-action="operator" value="%">%</button>
+                <button class="key-op" data-action="operator" value="/">÷</button>
+                
+                <button class="key-num" value="7">7</button>
+                <button class="key-num" value="8">8</button>
+                <button class="key-num" value="9">9</button>
+                <button class="key-op" data-action="operator" value="*">×</button>
+                
+                <button class="key-num" value="4">4</button>
+                <button class="key-num" value="5">5</button>
+                <button class="key-num" value="6">6</button>
+                <button class="key-op" data-action="operator" value="-">−</button>
+                
+                <button class="key-num" value="1">1</button>
+                <button class="key-num" value="2">2</button>
+                <button class="key-num" value="3">3</button>
+                <button class="key-op" data-action="operator" value="+">+</button>
+                
+                <button class="key-num zero-btn" value="0">0</button>
+                <button class="key-num" value=".">.</button>
+                <button class="key-equals" data-action="calculate">=</button>
+            </div>
+        </div>
+
+        <!-- Hidden Chat View -->
+        <div id="chat-view" class="view hidden">
+            <header class="chat-header">
+                <div class="contact-info">
+                    <div class="avatar">
+                        <ion-icon name="person"></ion-icon>
+                    </div>
+                    <div class="details">
+                        <h2>Secure Channel</h2>
+                        <span class="status" id="connection-status">Connecting...</span>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button id="connect-btn" class="icon-btn" title="Connect to Peer">
+                        <ion-icon name="link-outline"></ion-icon>
+                    </button>
+                    <button id="call-btn" class="icon-btn" title="Call">
+                        <ion-icon name="call-outline"></ion-icon>
+                    </button>
+                    <button id="share-btn" class="icon-btn" title="Share My ID">
+                        <ion-icon name="copy-outline"></ion-icon>
+                    </button>
+                </div>
+            </header>
+            
+            <main class="chat-messages" id="chat-messages">
+                <div class="message received">
+                    <p>Welcome to the secure channel. Communications are encrypted end-to-end.</p>
+                    <span class="time">Now</span>
+                </div>
+            </main>
+            
+            <footer class="chat-input-area">
+                <button class="icon-btn"><ion-icon name="add-outline"></ion-icon></button>
+                <input type="text" id="message-input" placeholder="Message..." autocomplete="off">
+                <button class="icon-btn send-btn" id="send-btn"><ion-icon name="send"></ion-icon></button>
+            </footer>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
