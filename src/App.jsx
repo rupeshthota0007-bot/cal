@@ -20,7 +20,7 @@ function App() {
     if (appStage === 'disclaimer') {
       const skipTimer = setTimeout(() => {
         setShowSkip(true);
-      }, 3000);
+      }, 4000);
 
       const timer = setTimeout(() => {
         setAppStage('register');
@@ -54,8 +54,8 @@ function App() {
         <div style={{
           position: 'fixed',
           top: 0, left: 0, right: 0, bottom: 0,
-          backgroundColor: 'black',
-          color: 'yellow',
+          backgroundColor: '#222222',
+          color: 'white',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -63,58 +63,54 @@ function App() {
           padding: '2rem',
           textAlign: 'center',
           zIndex: 9999,
+          fontFamily: 'sans-serif'
         }}>
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            marginBottom: '3rem',
-            transform: 'scale(1.2)'
+            marginBottom: '1.5rem',
           }}>
             {/* Warning Triangle */}
             <div style={{
               width: '0',
               height: '0',
-              borderLeft: '40px solid transparent',
-              borderRight: '40px solid transparent',
-              borderBottom: '70px solid #ffcc00',
+              borderLeft: '22px solid transparent',
+              borderRight: '22px solid transparent',
+              borderBottom: '40px solid #f3a738',
               position: 'relative',
-              marginRight: '-15px',
-              zIndex: 2,
-              filter: 'drop-shadow(2px 4px 6px rgba(0,0,0,0.5))'
+              marginRight: '15px',
             }}>
               <span style={{
                 position: 'absolute',
-                top: '20px',
-                left: '-6px',
-                color: 'white',
-                fontSize: '32px',
-                fontWeight: 'bold',
-                fontFamily: 'sans-serif'
+                top: '12px',
+                left: '-4px',
+                color: '#222222',
+                fontSize: '20px',
+                fontWeight: '900',
               }}>!</span>
             </div>
-            {/* Red Banner */}
+            {/* Disclaimer Text */}
             <div style={{
-              backgroundColor: '#e63946',
               color: 'white',
-              padding: '10px 30px 10px 40px',
-              fontSize: '2rem',
-              fontWeight: '900',
-              fontFamily: 'sans-serif',
-              letterSpacing: '2px',
-              borderRadius: '0 8px 8px 0',
-              boxShadow: '2px 4px 6px rgba(0,0,0,0.5)',
-              zIndex: 1
+              fontSize: '2.2rem',
+              fontWeight: 'bold',
+              letterSpacing: '1px',
             }}>
               DISCLAIMER
             </div>
           </div>
 
-          <div style={{ fontSize: '1.5rem', fontWeight: 'bold', lineHeight: '1.5', marginBottom: '2rem' }}>
-            For educational use only. Any misuse of this application is the sole responsibility of the user.
+          <div style={{ 
+            fontSize: '1.25rem', 
+            lineHeight: '1.6', 
+            maxWidth: '650px',
+            color: '#e0e0e0'
+          }}>
+            This application is intended for <span style={{ color: '#f3a738', fontWeight: 'bold' }}>educational purposes only.</span> By proceeding, you acknowledge that any misuse of this tool is sole responsibility of the user.
           </div>
 
           {/* Skip Button (takes up space even when hidden so layout doesn't jump) */}
-          <div style={{ height: '50px' }}>
+          <div style={{ height: '50px', marginTop: '2.5rem' }}>
             {showSkip && (
               <button 
                 onClick={() => setAppStage('register')}
