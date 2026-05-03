@@ -5,6 +5,7 @@ import path from 'node:path';
 const TOKEN_TTL_MS = 1000 * 60 * 60 * 24 * 7;
 const DATA_FILE = process.env.AUTH_DATA_FILE || path.join('/tmp', 'secure-channel-users.json');
 const AUTH_SECRET = process.env.AUTH_SECRET || 'change-this-secret-before-production';
+const PBKDF2_ITERATIONS = process.env.VERCEL ? 10000 : 120000;
 
 async function readUsers() {
   try {
@@ -76,12 +77,13 @@ function validateUserInput({ username, password, email }) {
 }
 
 function createPasswordHash(password, salt = crypto.randomBytes(16).toString('hex')) {
-  const hash = crypto.pbkdf2Sync(String(password), salt, 120000, 32, 'sha256').toString('hex');
-  return { salt, hash };
+  const hash = crypto.pbkdf2Sync(String(password), salt, PBKDF2_ITERATIONS, 32, 'sha256').toString('hex');
+  return { salt, hash, iterations: PBKDF2_ITERATIONS };
 }
 
 function matchesHash(attempt, storedHash) {
-  const attemptedHash = createPasswordHash(attempt, storedHash.salt).hash;
+  const iterations = storedHash.iterations || 120000;
+  const attemptedHash = crypto.pbkdf2Sync(String(attempt), storedHash.salt, iterations, 32, 'sha256').toString('hex');
   const left = Buffer.from(attemptedHash, 'hex');
   const right = Buffer.from(storedHash.hash, 'hex');
   return left.length === right.length && crypto.timingSafeEqual(left, right);
@@ -172,6 +174,7 @@ async function ensureDistinctPeerId(users, user) {
 }
 
 export default async function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
